@@ -1,0 +1,11 @@
+version 0.0.3
+Developer : Shahil Hussain
+:) wait for next update
+
+The following Program is made from:
+1.Python
+2.HTML
+and a little bit of "javascript"
+
+Exe file made through :
+cx_Freeze
