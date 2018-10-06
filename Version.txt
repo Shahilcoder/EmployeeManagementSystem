@@ -1,10 +1,11 @@
-version 0.0.3
+version 0.0.4
 Developer : Shahil Hussain
 :) wait for next update
 
 The following Program is made from:
 1.Python
 2.HTML
+3.SQL
 and a little bit of "javascript"
 
 Exe file made through :

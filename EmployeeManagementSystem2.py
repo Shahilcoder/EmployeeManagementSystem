@@ -2,6 +2,18 @@ from tkinter import *
 from PIL import ImageTk, Image
 import os
 
+def open_version_file():
+	os.startfile("Version.txt")
+
+def open_about_page():
+	os.startfile("About Company.html")
+
+def open_about_dev_page():
+	os.startfile("About Developer.html")
+def open_new_employee_window():
+	master2 = Tk()
+	NewEmployeeWindow(master2)
+
 class MainWindow():
 	def __init__(self, master):
 	#Window Configuration	
@@ -12,17 +24,17 @@ class MainWindow():
 	#File Menu
 		menubar = Menu(master)
 		filemenu = Menu(menubar, tearoff=0)
-		filemenu.add_command(label="New Employee")
+		filemenu.add_command(label="New Employee", command=open_new_employee_window)
 		filemenu.add_command(label="Open Employee List")
-		filemenu.add_command(label="Version")
+		filemenu.add_command(label="Version", command=open_version_file)
 		filemenu.add_command(label="Exit", command=master.destroy)
 
 		menubar.add_cascade(label="File", menu=filemenu)
 	
 	#Help Menu
 		helpmenu = Menu(menubar, tearoff=0)
-		helpmenu.add_command(label="About Company")
-		helpmenu.add_command(label="About Developer")
+		helpmenu.add_command(label="About Company", command=open_about_page)
+		helpmenu.add_command(label="About Developer", command=open_about_dev_page)
 		helpmenu.add_command(label="Donate :)")
 
 		menubar.add_cascade(label="Help", menu=helpmenu)
@@ -49,39 +61,43 @@ class MainWindow():
 		resize_img3 = image3.resize((20,20))
 		aboutbuttonimage = ImageTk.PhotoImage(resize_img3)
 	#The Buttons
-		newbutton = Button(master, image=newbuttonimage, text="New Employee", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised")
+		newbutton = Button(master, image=newbuttonimage, text="New Employee", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised", command=open_new_employee_window)
 		newbutton.place(x=50, y=450)
 
 		editbutton = Button(master, image=editbuttonimage, text="Show Employees", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised")
 		editbutton.place(x=390, y=450)
 
-		aboutbutton = Button(master, image=aboutbuttonimage, text="About Skyland Corp.", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised")
+		aboutbutton = Button(master, image=aboutbuttonimage, text="About Skyland Corp.", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised", command=open_about_page)
 		aboutbutton.place(x=700, y=450)
 
 	#Running Loop of window
 		master.mainloop()
+
+
 #---------------------------------------second window: newemployeewindow-------------------------------------------------
+
+
 class NewEmployeeWindow():
 	def __init__(self, master):
 	#Wndows configuration
 		master.title("Create New Employee")
-		master.minsize(600, 612)
+		master.minsize(680, 450)
 		master.config(bg='#FFFFFF')
 		
 	#File Menu
 		menubar = Menu(master)
 		filemenu = Menu(menubar, tearoff=0)
-		filemenu.add_command(label = "New Employee")
+		filemenu.add_command(label = "New Employee", command=open_new_employee_window)
 		filemenu.add_command(label = "Save")
-		filemenu.add_command(label = "Version")
+		filemenu.add_command(label = "Version", command=open_version_file)
 		filemenu.add_command(label = "Exit", command = master.destroy)
 
 		menubar.add_cascade(label = "File", menu=filemenu)
 		
 	#Help Menu
 		helpmenu = Menu(menubar, tearoff=0)
-		helpmenu.add_command(label="About Company")
-		helpmenu.add_command(label="About Developer")
+		helpmenu.add_command(label="About Company", command=open_about_page)
+		helpmenu.add_command(label="About Developer", command=open_about_dev_page)
 		helpmenu.add_command(label="Donate :)")
 
 		menubar.add_cascade(label="Help", menu=helpmenu)
@@ -91,7 +107,52 @@ class NewEmployeeWindow():
 
 	#The Fillup Form
 
+		Name_label = Label(master, text="Name Of Employee : ")
+		Name_label.place(x=30, y=150)
+		Name_entry = Entry(master, width=50)
+		Name_entry.place(x=160, y=150)
 
+		Id_lable = Label(master, text="ID : ")
+		Id_lable.place(x=490, y=150)
+		Id_entry = Entry(master, width=6)
+		Id_entry.place(x=535, y=150)
+
+		Number_label = Label(master, text="Moblie No. : ")
+		Number_label.place(x=30, y=175)
+		Number_entry = Entry(master, width=24)
+		Number_entry.place(x=160, y=175)
+
+		Address_label = Label(master, text="Address : ")
+		Address_label.place(x=30, y=200)
+		Address_entry = Entry(master, width=80)
+		Address_entry.place(x=160, y=200)
+
+	#Dropbox
+		Branch = StringVar(master)
+		Branch.set("None")
+
+		Branch_label = Label(master, text="Branch : ")
+		Branch_label.place(x=30, y=235)
+
+		Branch_dropbox = OptionMenu(master, Branch, "None", "Branch1", "Branch2", "Branch3")
+		Branch_dropbox.place(x=100, y=231)
+	#end of dropbox
+
+		Salary_label = Label(master, text="Salary : ")
+		Salary_label.place(x=30, y=275)
+		Salary_entry = Entry(master, width=20)
+		Salary_entry.place(x=160, y=275)
+
+	#Buttons
+		cancel_button = Button(master, text = "cancel", command=master.destroy, relief="flat")
+		cancel_button.place(x=550, y=400)
+
+		save_button = Button(master, text = "save", relief = "flat")
+		save_button.place(x=510, y=400)
+		
+	#End of Form
+
+	#Fetching Data
 
 	#Running Loop of window
 		master.mainloop()
@@ -101,5 +162,3 @@ class NewEmployeeWindow():
 #running Gui
 master = Tk()
 MainWindow(master)
-master2 = Tk()
-NewEmployeeWindow(master2)
