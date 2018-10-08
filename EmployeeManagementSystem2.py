@@ -1,7 +1,9 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import os
+from database_connection import *
 
+#-----------------------------------------Important functions-----------------------------------------------------
 def open_version_file():
 	os.startfile("Version.txt")
 
@@ -13,6 +15,7 @@ def open_about_dev_page():
 def open_new_employee_window():
 	master2 = Tk()
 	NewEmployeeWindow(master2)
+#--------------------------------------------------------------------------------------------------------------------------
 
 class MainWindow():
 	def __init__(self, master):
@@ -143,20 +146,33 @@ class NewEmployeeWindow():
 		Salary_entry = Entry(master, width=20)
 		Salary_entry.place(x=160, y=275)
 
-	#Fetching data
-		def Get_data():
+	#Fetching data and submitting data function
+		def create_the_employee():
 			Name = Name_entry.get()
 			Moblie_number = Number_entry.get()
 			Address = Address_entry.get()
 			Branch = Branch_var.get()
 			Salary = Salary_entry.get()
-			print(Name)
+
+			employee = (Name, Moblie_number, Address, Branch, Salary)
+
+			conn = create_connection()
+			if conn is not None:
+				create_table_employees(conn)
+
+				with conn:
+					create_employee(conn, employee)
+
+			else:
+				print('failed!')
+
+			master.destroy()
 			
 	#Buttons
 		cancel_button = Button(master, text = "cancel", command=master.destroy, relief="flat")
 		cancel_button.place(x=550, y=400)
 
-		save_button = Button(master, text = "save", relief = "flat", command=Get_data)
+		save_button = Button(master, text = "save", relief = "flat", command=create_the_employee)
 		save_button.place(x=510, y=400)
 
 	#End of Form
