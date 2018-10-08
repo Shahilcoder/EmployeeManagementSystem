@@ -107,52 +107,59 @@ class NewEmployeeWindow():
 
 	#The Fillup Form
 
-		Name_label = Label(master, text="Name Of Employee : ")
+		Name_var = StringVar()
+		Name_label = Label(master, text="Name Of Employee : ", textvariable=Name_var)
 		Name_label.place(x=30, y=150)
 		Name_entry = Entry(master, width=50)
 		Name_entry.place(x=160, y=150)
 
-		Id_lable = Label(master, text="ID : ")
-		Id_lable.place(x=490, y=150)
-		Id_entry = Entry(master, width=6)
-		Id_entry.place(x=535, y=150)
-
-		Number_label = Label(master, text="Moblie No. : ")
+		Moblie_number_var = IntVar()
+		Number_label = Label(master, text="Moblie No. : ", textvariable=Moblie_number_var)
 		Number_label.place(x=30, y=175)
 		Number_entry = Entry(master, width=24)
 		Number_entry.place(x=160, y=175)
 
-		Address_label = Label(master, text="Address : ")
+		Address_var = StringVar()
+		Address_label = Label(master, text="Address : ", textvariable=Address_var)
 		Address_label.place(x=30, y=200)
 		Address_entry = Entry(master, width=80)
 		Address_entry.place(x=160, y=200)
 
 	#Dropbox
-		Branch = StringVar(master)
-		Branch.set("None")
+		Branch_var = StringVar(master)
+		Branch_var.set("None")
 
 		Branch_label = Label(master, text="Branch : ")
 		Branch_label.place(x=30, y=235)
 
-		Branch_dropbox = OptionMenu(master, Branch, "None", "Branch1", "Branch2", "Branch3")
+		Branch_dropbox = OptionMenu(master, Branch_var, "None", "Branch1", "Branch2", "Branch3")
 		Branch_dropbox.place(x=100, y=231)
+
 	#end of dropbox
 
-		Salary_label = Label(master, text="Salary : ")
+		Salary_var = IntVar()
+		Salary_label = Label(master, text="Salary : ", textvariable=Salary_var)
 		Salary_label.place(x=30, y=275)
 		Salary_entry = Entry(master, width=20)
 		Salary_entry.place(x=160, y=275)
 
+	#Fetching data
+		def Get_data():
+			Name = Name_entry.get()
+			Moblie_number = Number_entry.get()
+			Address = Address_entry.get()
+			Branch = Branch_var.get()
+			Salary = Salary_entry.get()
+			print(Name)
+			
 	#Buttons
 		cancel_button = Button(master, text = "cancel", command=master.destroy, relief="flat")
 		cancel_button.place(x=550, y=400)
 
-		save_button = Button(master, text = "save", relief = "flat")
+		save_button = Button(master, text = "save", relief = "flat", command=Get_data)
 		save_button.place(x=510, y=400)
-		
-	#End of Form
 
-	#Fetching Data
+	#End of Form
 
 	#Running Loop of window
 		master.mainloop()
