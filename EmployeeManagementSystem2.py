@@ -15,6 +15,9 @@ def open_about_dev_page():
 def open_new_employee_window():
 	master2 = Tk()
 	NewEmployeeWindow(master2)
+def open_edit_employees_window():
+	master3 = Tk()
+	EditEmployeesWindow(master3)
 #--------------------------------------------------------------------------------------------------------------------------
 
 class MainWindow():
@@ -28,7 +31,7 @@ class MainWindow():
 		menubar = Menu(master)
 		filemenu = Menu(menubar, tearoff=0)
 		filemenu.add_command(label="New Employee", command=open_new_employee_window)
-		filemenu.add_command(label="Open Employee List")
+		filemenu.add_command(label="Open Employee List", command=open_edit_employees_window)
 		filemenu.add_command(label="Version", command=open_version_file)
 		filemenu.add_command(label="Exit", command=master.destroy)
 
@@ -67,7 +70,7 @@ class MainWindow():
 		newbutton = Button(master, image=newbuttonimage, text="New Employee", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised", command=open_new_employee_window)
 		newbutton.place(x=50, y=450)
 
-		editbutton = Button(master, image=editbuttonimage, text="Show Employees", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised")
+		editbutton = Button(master, image=editbuttonimage, text="Show Employees", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised", command=open_edit_employees_window)
 		editbutton.place(x=390, y=450)
 
 		aboutbutton = Button(master, image=aboutbuttonimage, text="About Skyland Corp.", height = 30, width = 130, compound = LEFT, bg = "#00F4FF", relief = "raised", command=open_about_page)
@@ -179,6 +182,40 @@ class NewEmployeeWindow():
 
 	#Running Loop of window
 		master.mainloop()
+
+#-----------------------------------------------third window: Edit employees window----------------------------------------------------------------------------
+
+class EditEmployeesWindow():
+	def __init__(self, master):
+	#windows configuration
+		master.minsize(650,500)
+		master.title("Edit Employees")
+		master.config(bg='#FFFFFF')
+
+        #the table format
+		Id_label = Label(master, text="Id", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Id_label.grid(row=0, column=0)
+
+		Name_label = Label(master, text="Name", padx=50, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Name_label.grid(row=0, column=1)
+
+		Moblie_number_label = Label(master, text="Moblie Number", padx=15, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Moblie_number_label.grid(row=0, column=2)
+
+		Address_label = Label(master, text="Address", padx=75, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Address_label.grid(row=0, column=3)
+
+		Branch_label = Label(master, text="Branch", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Branch_label.grid(row=0, column=4)
+
+		Salary_label = Label(master, text="Salary", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
+		Salary_label.grid(row=0, column=5)
+
+
+
+
+
+		
 #----------------------------------------------------------------------
 
 
