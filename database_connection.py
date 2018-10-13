@@ -7,6 +7,10 @@ def create_connection():
 		return conn
 	except Error as e:
 		print(e)
+
+	finally:
+		conn.commit()
+
 	return None
 
 def create_table_employees(conn):
@@ -26,6 +30,9 @@ def create_table_employees(conn):
 	except Error as e:
 		print(e)
 
+	finally:
+		conn.commit()
+
 def create_employee(conn, employee):
 	try:
 		create_employee_sql = '''INSERT INTO employees(Name, Mobile_number, Address, Branch, Salary)
@@ -36,6 +43,9 @@ def create_employee(conn, employee):
 		print('employee created')
 	except Error as e:
 		print(e)
+
+	finally:
+		conn.commit()
 
 def update_employee(conn, employee):
 	try:
@@ -53,6 +63,9 @@ def update_employee(conn, employee):
 	except Error as e:
 		print(e)
 
+	finally:
+		conn.commit()
+
 def delete_employee(conn, Id):
 	try:
 		delete_employee_sql ='''DELETE FROM employees WHERE Id = ?'''
@@ -63,6 +76,9 @@ def delete_employee(conn, Id):
 		print('employee deleted')
 	except Error as e:
 		print(e)
+
+	finally:
+		conn.commit()
 
 def delete_all_employees(conn):
 	try:
@@ -75,6 +91,27 @@ def delete_all_employees(conn):
 	
 	except Error as e:
 		print(e)
+
+	finally:
+		conn.commit()
+
+def show_employees_table(conn):
+	try:
+		show_employees_table_sql = '''SELECT * FROM employees'''
+
+		cur = conn.cursor()
+		cur.execute(show_employees_table_sql)
+
+		print("all employees shown")
+
+		rows = cur.fetchall()
+
+		return rows
+
+	except Error as e:
+		print(e)
+
+	return None
 
 def start_service():
 	conn = create_connection()

@@ -188,34 +188,28 @@ class NewEmployeeWindow():
 class EditEmployeesWindow():
 	def __init__(self, master):
 	#windows configuration
-		master.minsize(650,500)
+		master.minsize(1250,600)
 		master.title("Edit Employees")
 		master.config(bg='#FFFFFF')
 
-        #the table format
-		Id_label = Label(master, text="Id", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Id_label.grid(row=0, column=0)
-
-		Name_label = Label(master, text="Name", padx=50, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Name_label.grid(row=0, column=1)
-
-		Moblie_number_label = Label(master, text="Moblie Number", padx=15, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Moblie_number_label.grid(row=0, column=2)
-
-		Address_label = Label(master, text="Address", padx=75, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Address_label.grid(row=0, column=3)
-
-		Branch_label = Label(master, text="Branch", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Branch_label.grid(row=0, column=4)
-
-		Salary_label = Label(master, text="Salary", padx=25, borderwidth=1, relief="solid", bg="#FFFFFF")
-		Salary_label.grid(row=0, column=5)
-
-
-
-
-
+	#Listbox: the place where the data will be shown
 		
+		Employee_list = Listbox(master, width=207)
+		Employee_list.pack(side=LEFT, fill=BOTH)
+
+	#scroll bar for the listbox
+		
+		scroll_bar = Scrollbar(master)
+		scroll_bar.pack(side=RIGHT, fill=Y)
+
+	#attaching scrollbar and listbox
+		Employee_list.config(yscrollcommand=scroll_bar.set)
+		scroll_bar.config(command=Employee_list.yview)
+
+
+	#Running loop of window
+		master.mainloop()
+
 #----------------------------------------------------------------------
 
 
