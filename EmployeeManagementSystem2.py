@@ -85,6 +85,31 @@ class MainWindow():
 
 class NewEmployeeWindow():
 	def __init__(self, master):
+
+		def create_the_employee():
+			"""
+			this function fetches the data and submits to database
+			"""
+			Name = Name_entry.get()
+			Moblie_number = Number_entry.get()
+			Address = Address_entry.get()
+			Branch = Branch_var.get()
+			Salary = Salary_entry.get()
+
+			employee = (Name, Moblie_number, Address, Branch, Salary)
+
+			conn = create_connection()
+			if conn is not None:
+				create_table_employees(conn)
+
+				with conn:
+					create_employee(conn, employee)
+
+			else:
+				print('failed!')
+
+			master.destroy()
+
 	#Wndows configuration
 		master.title("Create New Employee")
 		master.minsize(680, 450)
@@ -94,7 +119,7 @@ class NewEmployeeWindow():
 		menubar = Menu(master)
 		filemenu = Menu(menubar, tearoff=0)
 		filemenu.add_command(label = "New Employee", command=open_new_employee_window)
-		filemenu.add_command(label = "Save")
+		filemenu.add_command(label = "Save", command=create_the_employee)
 		filemenu.add_command(label = "Version", command=open_version_file)
 		filemenu.add_command(label = "Exit", command = master.destroy)
 
@@ -148,28 +173,6 @@ class NewEmployeeWindow():
 		Salary_label.place(x=30, y=275)
 		Salary_entry = Entry(master, width=20)
 		Salary_entry.place(x=160, y=275)
-
-	#Fetching data and submitting data function
-		def create_the_employee():
-			Name = Name_entry.get()
-			Moblie_number = Number_entry.get()
-			Address = Address_entry.get()
-			Branch = Branch_var.get()
-			Salary = Salary_entry.get()
-
-			employee = (Name, Moblie_number, Address, Branch, Salary)
-
-			conn = create_connection()
-			if conn is not None:
-				create_table_employees(conn)
-
-				with conn:
-					create_employee(conn, employee)
-
-			else:
-				print('failed!')
-
-			master.destroy()
 			
 	#Buttons
 		cancel_button = Button(master, text = "cancel", command=master.destroy, relief="flat")
@@ -192,10 +195,30 @@ class EditEmployeesWindow():
 		master.title("Edit Employees")
 		master.config(bg='#FFFFFF')
 
+	#File Menu
+		menubar = Menu(master)
+		filemenu = Menu(menubar, tearoff=0)
+		filemenu.add_command(label = "New Employee", command=open_new_employee_window)
+		filemenu.add_command(label = "Version", command=open_version_file)
+		filemenu.add_command(label = "Exit", command = master.destroy)
+
+		menubar.add_cascade(label = "File", menu=filemenu)
+		
+	#Help Menu
+		helpmenu = Menu(menubar, tearoff=0)
+		helpmenu.add_command(label="About Company", command=open_about_page)
+		helpmenu.add_command(label="About Developer", command=open_about_dev_page)
+		helpmenu.add_command(label="Donate :)")
+
+		menubar.add_cascade(label="Help", menu=helpmenu)
+		
+	#attaching menu
+		master.config(menu=menubar)
+
 	#Listbox: the place where the data will be shown
 		
 		Employee_list = Listbox(master, width=207)
-		Employee_list.pack(side=LEFT, fill=BOTH)
+		Employee_list.pack(side=LEFT)
 
 	#scroll bar for the listbox
 		
@@ -205,6 +228,26 @@ class EditEmployeesWindow():
 	#attaching scrollbar and listbox
 		Employee_list.config(yscrollcommand=scroll_bar.set)
 		scroll_bar.config(command=Employee_list.yview)
+
+	#getting data from database and then showing it in the list box
+		conn = create_connection()
+
+		if conn is not None:
+			create_table_employees(conn)
+
+			with conn:
+				rows = select_all_employees(conn)
+
+			if rows is not None:
+
+				for row in rows:
+					#gettin data from row tuple in string form with spaces
+					Data = '    '.join(map(str, row))
+					print(Data)
+					Employee_list.insert(END, Data)
+
+			else:
+				Employee_list.insert(END, "\n\t\tThere is no data currtently")
 
 
 	#Running loop of window

@@ -95,7 +95,7 @@ def delete_all_employees(conn):
 	finally:
 		conn.commit()
 
-def show_employees_table(conn):
+def select_all_employees(conn):
 	try:
 		show_employees_table_sql = '''SELECT * FROM employees'''
 
@@ -124,6 +124,8 @@ def start_service():
 
 			employee_update = ('Shahilsky', 7017179196, 'Rosemarry school, West Bengal', 'None', 45000, 1)
 			update_employee(conn, employee_update)
+
+			rows = select_all_employees(conn)
 
 			delete_employee(conn, 1)
 			#delete_all_employees(conn)
