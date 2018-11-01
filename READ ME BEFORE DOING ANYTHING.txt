@@ -1,0 +1,10 @@
+shahilsky here is the git structure of our project
+
+ (1)Master---------(2)edit_window_and_sql---------------------(3)edit_window_and_sql2
+
+
+		do the styling of edit window in (2)
+
+		do the technical stuff with edit window in (3)
+
+		do general things in (1)
